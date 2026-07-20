@@ -1,3 +1,13 @@
+CC=/home/amrut/VEGA/trisul32_buildroot/buildroot/output/host/bin/riscv32-linux-gcc
+STRIP=/home/amrut/VEGA/trisul32_buildroot/buildroot/output/host/bin/riscv32-linux-strip
+cd /home/amrut/C2S-DEMO/deploy
+$CC -O3 -flto -funroll-loops -fno-math-errno -DUSE_FPGA persondetectionmodel.c -o PM -static -lm
+$STRIP PM
+scp PM board:~/deploy/
+On the board:
+./PM image.jpg weights.bin --conf 0.67 --stride 70 --scales 0.61
+
+
 <img width="1783" height="517" alt="image" src="https://github.com/user-attachments/assets/b809e96e-ee4a-44dd-aeaa-53d103547f14" />
 
 Your best general-purpose command (mid/high altitude):
